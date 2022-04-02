@@ -1,10 +1,39 @@
 const {version} = require('../../package.json');
+const path = require('path');
+
 module.exports = {
     title: `cnchar (v${version})`, // 标题
+    configureWebpack: () => {
+        const NODE_ENV = process.env.NODE_ENV;
+        // 判断是否是生产环境
+        if (NODE_ENV === 'production') {
+            return {
+                output: {
+                    publicPath: 'https://cdn.jsdelivr.net/gh/theajack/cnchar@master/docs/'
+                    // publicPath: '/docs/' // debug
+                },
+                resolve: {
+                    // 配置路径别名
+                    alias: {
+                        'public': path.resolve(__dirname, './public')
+                    }
+                }
+            };
+        } else {
+            return {
+                resolve: {
+                    // 配置路径别名
+                    alias: {
+                        'public': path.resolve(__dirname, './public')
+                    }
+                }
+            };
+        }
+    },
     description: '功能全面、多端支持的汉字拼音笔画js库', // 描述
     dest: './docs/', // 基本url
     // base: '/cnchar/',
-    base: '/',
+    base: '/cnchar/', // gh-pages分支这里需要改成 / 因为 cnchar.js.org的配置
     // 注入到当前页面的 HTML <head> 中的标签
     head: [
         ['link', {rel: 'icon', href: 'https://cdn.jsdelivr.net/gh/theajack/cnchar/docs/assets/v1/images/i.ico'}], // 增加一个自定义的 favicon
@@ -149,7 +178,13 @@ module.exports = {
 
         // 官方图片放大组件 目前是所有img都可以点击放大。具体配置见https://v1.vuepress.vuejs.org/zh/plugin/official/plugin-medium-zoom.html
         ['@vuepress/medium-zoom', {selector: 'img'}],
-        'vuepress-plugin-tc-comment'
+        ['vuepress-plugin-tc-comment', {
+            // host: 'localhost:6868', // dev
+            host: 'www.shiyix.cn', // View https://github.com/theajack/comment for details
+            getUrl: '/api/comment/cnchar',
+            insertUrl: '/api/comment/cnchar',
+            replyUrl: '/api/reply/cnchar',
+        }]
         // [
         //     'vuepress-plugin-comment',
         //     {

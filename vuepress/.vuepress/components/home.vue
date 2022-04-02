@@ -69,8 +69,20 @@
                 order: '',
             };
         },
+        mounted(){
+            if(location.hash){
+                this.text = decodeURIComponent(location.hash).substring(1);
+                this.applyText();
+            }
+        },
         methods: {
             input () {
+                if (this.text) {
+                    location.hash = this.text;
+                    this.applyText();
+                }
+            },
+            applyText(){
                 if (this.text) {
                     this.spell = this.text.spell('array', 'tone').join(' ');
                     this.stroke =  this.text.stroke();
@@ -79,9 +91,11 @@
                     this.order =  JSON.stringify(this.text.stroke('order', 'shape')).replace(/"/g, '').replace(/null/g, '无');
                     let str = this.pickCnChar(this.text);
                     let el = document.getElementById('draw-area');
-                    el.innerHTML = '';
-                    if (str !== '') {
-                        window.cnchar.draw(str, {el});
+                    if(el) {
+                        el.innerHTML = '';
+                        if (str !== '') {
+                            window.cnchar.draw(str, {el});
+                        }
                     }
                 }
             },
@@ -102,7 +116,7 @@
                 window.location.href = '/cnchar/guide/';
             },
             run () {
-                window.open('https://theajack.gitee.io/jsbox/?theme=dark&lang=html&lib=cnchar-all&code=DwZwLgngNgpgfAWAFAAI0oMQGMB2WAWAhgE4C0JMhA3sunSlAJY4yn4yMDm+YAXCgGYADAAcAHgG5a6AL7JgAenDR48gCaMAbikZqAvAHI1xQgHdyxSgbiKNmxEmB2d+g7gIkLVmwrsPQWMSMImAOdJokKMZmAIKWhCh6UQD2WACuALYwOGAAdJwwYACisFk5AEIQAJJqABRGJuYUhAYAlFKo6NGmcZS5zCzEABIAKgCyADKJKAYGHeGRySGMyTjTNJ30KFiwJPwAZoRQIDAANNJbMFD83b2E55v0yrD8G1tbJhpYRwDCyVDJYj8AwYAAsoP2Bge73oACNCFgANacYjJNI4NR-AFAmYYGD4qEXGEMbKcMD4fgANiERLocke9LoSzAKxwuUgIhg03cRGIuW6uRGAE0AApFXIAOQA8gAlMYxCbzdA8kj8xr1QAG8oBfTShKGZrPayCJ+tW7IgnO5eF5arMgtF4oAyiMZVKANJFJVoFV87r1QCSNoB1bV1JpwhqQxuWpo5XKS3ptpjtYtyMQlVXlIyqUolnu2VtVvoMgAj9QDuicHI6GOkSIsQUJYQNMANq05V5vmaGDEECs6HvOPgVGImCanWnGaAtQd3UGEBETltHtbPtgAdDgyAf1TAHPqU-Hk9HBhwhCy8+bXtbuR3xBGyQA6uPag2DIAqKyngHCTKeAL2MDABdVoL+hxrBVnbYg8i7DIRFgK8Rk+epAFo5QBftU3Y9HjoACgI7PJl0INQrwdRhwNgepACJ7INfxPGZADj-LVABC3QAGdUATtMDFyEBOSgKB6jAVYYGQmF10Ack1ADC5JiWKudiyJQ9B+KE5jWPYgwRH+CAeN7M9+2SQcr1vYg6gAJgAVj3MCIO48SYTjXQVgye8DEAFLkpynQBBZXsn8-1Qs8xHwCB6j4wAWG0AJsUBMATPzAGjnQBMvWUxcz0+Rhvjk7VAAEVCL-1UwEwAdWTrMAAn1AEg5KdMr4qEDEAOXNAG21QrgrslzyL7VKHWXdShwfDUpxHGZEqqiTTw8PlGBAH4cB+Xl6hiJK6AAKQdLNmOXZhOEYfYvL7WSqhwfZknqIYAAOcDaUz0C-Ik1FSTJsjyApilKU7KhqepvS8FpWn6HBBhGGAxDAaY61yAArZJmHqAAdHbWiJQCcBAf4YFyAFOFqOsQccJRAmCUIgA');
+                window.open('https://theajack.gitee.io/jsbox/?github=theajack.cnchar@master');
             }
         },
     };
