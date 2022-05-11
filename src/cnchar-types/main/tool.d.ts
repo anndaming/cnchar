@@ -45,6 +45,12 @@ export declare interface ICheckArgs {
     ): void;
 }
 
+/**
+    将拼音转换成json数据
+    lv2 => {spell:'lü', tone: 2, index: 2, isTrans: true}
+    lǘ => {spell:'lü', tone: 2, index: 2, isTrans: false}
+    needTone = true: lv2 => {spell:'lǘ', tone: 2, index: 2, isTrans: true}
+ */
 export declare interface ITransformTone {
     (
         spell: string,
@@ -65,6 +71,7 @@ export declare interface ICncharTool {
     sumStroke: IFunc<number, Array<number>>;
     isCnChar: IFunc<boolean>;
     checkArgs: ICheckArgs;
+    checkTrad(input: string | string[], args: string[]): string | string[];
     transformTone: ITransformTone;
     convert?: ConvertInterface;
     dict: {
@@ -72,6 +79,7 @@ export declare interface ICncharTool {
         getTradCount?(): Json<string>;
     };
     mapJson: IMapJson;
+    getResourceBase(): string;
     poly?: boolean;
     [prop: string]: any;
 }

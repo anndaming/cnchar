@@ -9,7 +9,7 @@ module.exports = {
         if (NODE_ENV === 'production') {
             return {
                 output: {
-                    publicPath: 'https://cdn.jsdelivr.net/gh/theajack/cnchar@master/docs/'
+                    publicPath: 'https://cdn.jsdelivr.net/gh/theajack/cnchar@gh-pages/'
                     // publicPath: '/docs/' // debug
                 },
                 resolve: {
@@ -36,7 +36,7 @@ module.exports = {
     base: '/cnchar/', // gh-pages分支这里需要改成 / 因为 cnchar.js.org的配置
     // 注入到当前页面的 HTML <head> 中的标签
     head: [
-        ['link', {rel: 'icon', href: 'https://cdn.jsdelivr.net/gh/theajack/cnchar/docs/assets/v1/images/i.ico'}], // 增加一个自定义的 favicon
+        ['link', {rel: 'icon', href: 'https://cdn.jsdelivr.net/gh/theajack/cnchar@gh-pages/assets/v1/images/i.ico'}], // 增加一个自定义的 favicon
     ],
     // dest: './dist', //打包位置
     port: 6868, // 端口号
@@ -69,8 +69,12 @@ module.exports = {
                     {text: 'cnchar-idiom: 成语', link: '/doc/idiom'},
                     {text: 'cnchar-xhy: 歇后语', link: '/doc/xhy'},
                     {text: 'cnchar-radical: 偏旁部首', link: '/doc/radical'},
+                    {text: 'cnchar-words: 组词', link: '/doc/words'},
+                    {text: 'cnchar-explain: 释义', link: '/doc/explain'},
+                    {text: 'cnchar-voice: 语音', link: '/doc/voice'},
                     {text: '工具方法', link: '/doc/tool'},
                     {text: '自定义数据', link: '/doc/custom'},
+                    {text: '离线使用', link: '/doc/offline'},
                 ],
             },
             {
@@ -128,12 +132,28 @@ module.exports = {
                             path: 'radical',
                         },
                         {
+                            title: 'cnchar-words',
+                            path: 'words',
+                        },
+                        {
+                            title: 'cnchar-explain',
+                            path: 'explain',
+                        },
+                        {
+                            title: 'cnchar-voice',
+                            path: 'voice',
+                        },
+                        {
                             title: '工具方法',
                             path: 'tool',
                         },
                         {
                             title: '自定义数据',
                             path: 'custom',
+                        },
+                        {
+                            title: '离线使用',
+                            path: 'offline',
                         },
                     ],
                 },
@@ -185,44 +205,6 @@ module.exports = {
             insertUrl: '/api/comment/cnchar',
             replyUrl: '/api/reply/cnchar',
         }]
-        // [
-        //     'vuepress-plugin-comment',
-        //     {
-        //         // choosen: pluginConf,
-        //         // options: {
-        //         // }
-        //         choosen: pluginValine,
-        //         options: {
-        //             el: '#vcomments',
-        //             appId: 'azSK2mRA57Pa2Y0NEWxXjrdJ-gzGzoHsz',
-        //             appKey: 'Ky1y1SbwcyYkHMEbdVeq6mnf',
-        //             notify: false,
-        //             verify: false,
-        //             avatar: 'mp',
-        //             placeholder: '留下点什么吧...'
-        //         }
-        //     }
-        // ]
-        
-        // [
-        //     'vuepress-plugin-comment',
-        //     {
-        //         choosen: 'valine',
-        //         // options选项中的所有参数，会传给Valine的配置
-        //         options: {
-        //             el: '#vcomments',
-        //             appId: 'azSK2mRA57Pa2Y0NEWxXjrdJ-gzGzoHsz',
-        //             appKey: 'Ky1y1SbwcyYkHMEbdVeq6mnf',
-        //             notify: false,
-        //             verify: false,
-        //             avatar: 'mp',
-        //             placeholder: '留下点什么吧...'
-        //         }
-        //     }
-        // ]
     ],
 
-    // vuepress里修改webpack配置，使用的是chainWebpack进行链式调用
-    // chainWebpack: (config, isServer) => {
-    // }
 };
