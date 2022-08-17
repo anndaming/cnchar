@@ -1,12 +1,10 @@
 import {spellInfo} from './spellToWord';
-import {isCnChar, has} from './util';
-import defultDict from '../dict/spell-default.json';
+import {has} from './util';
+import Dict from '../dict';
 import {AllArgs, ICnChar, TypeProp, ToneType, SpellArg, StrokeArg, TypeValueObject} from 'cnchar-types/main/index';
 import {Json, ITransformReturn} from 'cnchar-types/main/common';
 import {TSpellArg, IDealUpLowFirst, IRemoveTone, IFunc, ICheckArgs, ITransformTone} from 'cnchar-types/main/tool';
-import {_warn} from '@common/util';
-
-const defDict = defultDict as Json<string>;
+import {_warn, isCnChar} from '@common/util';
 
 export const tones: string = 'āáǎàōóǒòēéěèīíǐìūúǔùǖǘǚǜ*ńňǹ'; // * 表示n的一声
 
@@ -47,26 +45,31 @@ export function spell (dict: Json<string>, originArgs: Array<string>): string | 
         const pos = parseInt(ds[0]); // 某个拼音的音调位置
         for (let i = 0; i < strs.length; i++) { // 遍历字符数组
             const ch: string = strs[i];
+
+            const addIntoPolyRes = (spell: string) => {
+                debugger;
+                isDefaultSpell(ch, spell) ? res[i].unshift(spell) : res[i].push(spell);
+                debugger;
+            };
+
             if (isCnChar(ch)) { // 如果是汉字
                 let index = ds.indexOf(ch);
                 if (index !== -1) {
                     const ssp = getSpell(sp, ds, index, poly, tone, pos); // single spell
                     if (ssp.poly) { // 多音字模式 且 当前汉字是多音字
-                        if (!res[i]) {
-                            res[i] = [];
-                        }
-                        res[i].push(ssp.res);
+                        if (!res[i]) res[i] = [];
+                        addIntoPolyRes(ssp.res);
                         let dsNew = ds;
                         const n = (dsNew.match(new RegExp(ch, 'g')) as Array<string>).length;
                         for (let k = 1; k < n; k++) {
                             dsNew = dsNew.substr(index + 2);
                             index = dsNew.indexOf(ch);
-                            res[i].push(getSpell(sp, dsNew, index, poly, tone, pos).res);
+                            addIntoPolyRes(getSpell(sp, dsNew, index, poly, tone, pos).res);
                         }
                     } else {
                         if (ssp.isPolyWord) { // 是多音字 不是多音字模式
-                            if (defDict[ch]) { // 设置了多音字的默认拼音
-                                ssp.res = removeTone(defDict[ch], tone).spell; // 默认有音调
+                            if (Dict.spellDefault[ch]) { // 设置了多音字的默认拼音
+                                ssp.res = removeTone(Dict.spellDefault[ch], tone).spell; // 默认有音调
                             }
                         }
                         res[i] = [ssp.res];
@@ -89,7 +92,7 @@ export function spell (dict: Json<string>, originArgs: Array<string>): string | 
             if (item[0] === NOT_CNCHAR) {
                 result[i] = item[1]; // 非汉字返回原字符
             } else {
-                result[i] = `(${res[i].join('|')})`;
+                result[i] = `(${item.join('|')})`;
             }
         } else {
             result[i] = item[0];
@@ -152,7 +155,6 @@ function low (s: string): string {
     return s.toLowerCase();
 }
 
-
 function getSpell (
     spell: string,
     str: string,
@@ -182,6 +184,12 @@ function getSpell (
     return res;
 }
 
+function isDefaultSpell (word: string, spell: string) {
+    const def = Dict.spellDefault[word];
+    if (!def) return false;
+    return def === spell || (shapeSpell(def, true).replace(/[0-4]/, '') === spell);
+}
+
 // tone=false : 根据有音调的拼音获得无音调的拼音和音调
 // tone=true : 返回原拼音
 export const removeTone: IRemoveTone = (spell: string, tone: boolean): {
@@ -207,7 +215,7 @@ export const removeTone: IRemoveTone = (spell: string, tone: boolean): {
  * 给拼音添加音调
  * setTone('ni', 1, 3) = nǐ
  */
-function setTone (spell: string, index: number, tone: ToneType): string {
+export function setTone (spell: string, index: number, tone: ToneType): string {
     if (tone === 0) { // 轻声
         return spell;
     }
@@ -246,6 +254,7 @@ export function stroke (
     }
     return strokes;
 }
+
 export const sumStroke: IFunc<number, Array<number>> = (strs: Array<number>): number => {
     let sum: number = 0;
     strs.forEach(function (c) {

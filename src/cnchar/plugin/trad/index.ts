@@ -1,6 +1,6 @@
-import {countDict, orderDict} from './dict';
+import {countDict, getDict, orderDict} from './dict';
 import {converter} from './converter';
-import {IConverter, ITradModArg, ITradString} from 'cnchar-types/plugin/trad';
+import {IConverter, ITrad, ITradModArg, ITradString} from 'cnchar-types/plugin/trad';
 import {ICnChar, SpellArg, StrokeArg} from 'cnchar-types/main';
 import {ICncharTool} from 'cnchar-types/main/tool';
 import {ISpell} from 'cnchar-types/main/index';
@@ -12,6 +12,7 @@ import {IPlugin} from 'cnchar-types/main/common';
 const arg: ITradModArg = {
     trad: 'trad', simple: 'simple', array: 'array', order: 'order' // 开启简单模式
 };
+
 let _: ICncharTool;// 工具方法
 
 function reinitSpell (proto: String, cnchar: ICnChar): void {
@@ -49,7 +50,7 @@ function reinitSpell (proto: String, cnchar: ICnChar): void {
     if (!cnchar._.poly) {
         cnchar._._reinitSpellPoly = function (): void {
             _spell = cnchar.spell;
-            proto.spell = function (...args) {
+            proto.spell = function (...args: any[]) {
                 return newSpell(this as string, ...args);
             };
             cnchar.spell = function (...args) {return newSpell(...args);};
@@ -70,7 +71,7 @@ function reinitStroke (proto: String, cnchar: ICnChar) {
                 return (isArr) ? res : _.sumStroke(res as Array<number>);
             }
             if (_.has(args, arg.trad)) {
-                for (var j = 0; j < res.length; j++) {
+                for (let j = 0; j < res.length; j++) {
                     if (res[j] !== 0) {
                         res[j] = -1;
                     }
@@ -78,14 +79,14 @@ function reinitStroke (proto: String, cnchar: ICnChar) {
             }
             for (const i in countDict) {
                 const inum = parseInt(i);
-                for (var j = 0; j < res.length; j++) {
+                for (let j = 0; j < res.length; j++) {
                     if (res[j] === 0 && countDict[inum].indexOf(str[j]) !== -1) {
                         res[j] = inum;
                     }
                 }
             }
             if (_.has(args, arg.trad)) {
-                for (var j = 0; j < res.length; j++) {
+                for (let j = 0; j < res.length; j++) {
                     if (res[j] === -1) {
                         res[j] = 0;
                     }
@@ -101,7 +102,7 @@ function reinitStroke (proto: String, cnchar: ICnChar) {
             }
             // 将其中的繁体字获取 strokeOrder
             const igList = [];
-            for (var i = 0; i < res.length; i++) {
+            for (let i = 0; i < res.length; i++) {
                 if (typeof res[i] === 'undefined') {
                     res[i] = orderDict[str[i]]; // 字母版笔画表
                 } else {
@@ -126,8 +127,7 @@ function reinitStroke (proto: String, cnchar: ICnChar) {
     }
 }
 
-
-function install (cnchar: ICnChar & {convert?: IConverter}): void {
+function install (cnchar: ICnChar & {convert?: IConverter}) {
     cnchar.convert = converter;
     const _p: String & ITradString = String.prototype;
     if (typeof cnchar.type.spell === 'object') {
@@ -152,13 +152,15 @@ function install (cnchar: ICnChar & {convert?: IConverter}): void {
     _.dict.getTradCount = function () {return countDict;};
 }
 
-
-const plugin: IPlugin = {
+const plugin: IPlugin & ITrad = {
     pluginName: 'trad',
-    install: install,
+    install,
+    convert: converter,
+    dict: getDict(),
 };
 
 if (typeof window === 'object' && window.CnChar) {
+    window.CncharTrad = plugin;
     window.CnChar.use(plugin);
 }
 

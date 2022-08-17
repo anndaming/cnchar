@@ -1,7 +1,7 @@
 import originPolyPhrases from './dict/polyphone-phrase-simple.json';
 import {ICnChar, ISpell, SpellArg} from 'cnchar-types/main/index';
 import {ICncharTool} from 'cnchar-types/main/tool';
-import {ISetPolyPhrase} from 'cnchar-types/plugin/poly';
+import {IPoly, ISetPolyPhrase} from 'cnchar-types/plugin/poly';
 import {IPlugin, Json} from 'cnchar-types/main/common';
 
 const polyPhrases = originPolyPhrases as Json<string>;
@@ -58,7 +58,7 @@ const setPolyPhrase: ISetPolyPhrase = (word: string | Json<string>, spell?: stri
     }).join(' ');
 };
 
-function install (cnchar: ICnChar & {setPolyPhrase?: ISetPolyPhrase}): void {
+function install (cnchar: ICnChar & {setPolyPhrase?: ISetPolyPhrase}) {
     cnchar.setPolyPhrase = setPolyPhrase;
     _spell = cnchar._origin.spell;
     _ = cnchar._;
@@ -81,12 +81,17 @@ function install (cnchar: ICnChar & {setPolyPhrase?: ISetPolyPhrase}): void {
     }
 }
 
-const plugin: IPlugin = {
+const plugin: IPlugin & IPoly = {
     pluginName: 'poly',
-    install: install,
+    install,
+    setPolyPhrase,
+    dict: {
+        phrases: polyPhrases
+    }
 };
 
 if (typeof window === 'object' && window.CnChar) {
+    window.CncharPoly = plugin;
     window.CnChar.use(plugin);
 }
 

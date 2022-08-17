@@ -2,14 +2,17 @@ import {ICnChar, XhyArg} from '../../main/index';
 
 export declare type TAddXhyArg1 = Array<Array<string>> | Array<string>;
 
-export declare interface IAddXhy {
+export interface IAddXhy {
     (args: TAddXhyArg1): void;
     (xhyHead: string, xhyTail: string): void;
 }
 
-export declare interface IXHY {
+export interface IXHY {
     (text:string, ...xhyArgs: Array<XhyArg>): Array<string>;
     addXhy: IAddXhy;
+    dict: {
+        array: string[][]
+    };
 }
 
 declare global {

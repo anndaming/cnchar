@@ -1,5 +1,5 @@
 <p align="center">
-    <img src='https://cdn.jsdelivr.net/gh/theajack/cnchar/dist/rm-logo.png' width='200px'/>
+    <img src='https://fastly.jsdelivr.net/gh/theajack/cnchar/dist/rm-logo.png' width='200px'/>
 </p> 
 
 <p align="center">
@@ -26,7 +26,7 @@
     <a href="https://www.github.com/theajack/cnchar/blob/master/LICENSE" target="_black">
         <img src="https://img.shields.io/github/license/theajack/cnchar?color=%232DCE89&logo=github" alt="license" />
     </a>
-    <a href="https://cdn.jsdelivr.net/gh/theajack/cnchar/dist/cnchar.latest.min.js"><img src="https://img.shields.io/bundlephobia/minzip/cnchar.svg" alt="Size"></a>
+    <a href="https://fastly.jsdelivr.net/gh/theajack/cnchar/dist/cnchar.latest.min.js"><img src="https://img.shields.io/bundlephobia/minzip/cnchar.svg" alt="Size"></a>
     <a href="https://github.com/theajack/cnchar/search?l=javascript"><img src="https://img.shields.io/github/languages/top/theajack/cnchar.svg" alt="TopLang"></a>
     <a href="https://github.com/theajack/cnchar/issues"><img src="https://img.shields.io/github/issues-closed/theajack/cnchar.svg" alt="issue"></a>
     <a href="https://www.github.com/theajack/cnchar"><img src="https://img.shields.io/librariesio/dependent-repos/npm/cnchar.svg" alt="Dependent"></a>
@@ -34,7 +34,14 @@
 
 <h3>🚀 功能全面、多端支持的汉字拼音笔画 js 库</h3>
 
-**[English](https://github.com/theajack/cnchar/blob/master/helper/README.en.md) | [在线试用/文档](https://theajack.github.io/cnchar) | [更新日志](https://github.com/theajack/cnchar/blob/master/helper/version.md) | 应用:[打字游戏](https://theajack.github.io/type/)、[打字钢琴](https://theajack.github.io/piano/) | [反馈错误/缺漏](https://github.com/theajack/cnchar/issues/new) | [Gitee](https://gitee.com/theajack/cnchar) | QQ Group: 958278438 | [留言板](https://theajack.github.io/message-board/?app=cnchar)**
+**[English](https://github.com/theajack/cnchar/blob/master/README.en.md) | [在线试用/文档](https://theajack.github.io/cnchar) | [更新日志](https://github.com/theajack/cnchar/blob/master/helper/version.md) | [反馈错误/缺漏](https://github.com/theajack/cnchar/issues/new) | [Gitee](https://gitee.com/theajack/cnchar) | QQ Group: 958278438 | [留言板](https://theajack.github.io/message-board/?app=cnchar)**
+
+### 应用例子
+
+开始文档之前，先通过一些应用案例看看 cnchar 能够做些什么
+
+[汉字打字游戏](https://theajack.github.io/type/) | [打字弹钢琴](https://theajack.github.io/piano/) | [成语接龙](https://theajack.github.io/jsbox/?github=theajack.cnchar@master.helper/jsbox/idiom.js) | [通讯录排序](https://theajack.github.io/jsbox/?github=theajack.cnchar@master.helper/jsbox/sort.js) | [取名字](https://theajack.github.io/jsbox/?github=theajack.cnchar@master.helper/jsbox/name.js) | [输入法](https://theajack.github.io/jsbox/?github=theajack.cnchar@master.helper/jsbox/input.js) | [歇后语](https://theajack.github.io/jsbox/?github=theajack.cnchar@master.helper/jsbox/xhy.js) | [语音识别与合成](https://theajack.github.io/jsbox/?github=theajack.cnchar@master.helper/jsbox/voice.js) | [简繁体转换](https://theajack.github.io/jsbox/?github=theajack.cnchar@master.helper/jsbox/trad.js)
+
 
 ---
 
@@ -46,7 +53,7 @@
 - [前言](#%E5%89%8D%E8%A8%80)
 - [0.快速使用](#0%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8)
 - [1.功能](#1%E5%8A%9F%E8%83%BD)
-- [2.概览](#2%E6%A6%82%E8%A7%88)
+- [2.功能及插件概览](#2%E5%8A%9F%E8%83%BD%E5%8F%8A%E6%8F%92%E4%BB%B6%E6%A6%82%E8%A7%88)
 - [3.安装](#3%E5%AE%89%E8%A3%85)
   * [3.1 使用 npm 安装](#31-%E4%BD%BF%E7%94%A8-npm-%E5%AE%89%E8%A3%85)
   * [3.2 cdn 引入](#32-cdn-%E5%BC%95%E5%85%A5)
@@ -88,6 +95,7 @@
     + [5.13.7 根据拼音排序: sortSpell](#5137-%E6%A0%B9%E6%8D%AE%E6%8B%BC%E9%9F%B3%E6%8E%92%E5%BA%8F-sortspell)
     + [5.13.8 根据笔画数排序: sortStroke](#5138-%E6%A0%B9%E6%8D%AE%E7%AC%94%E7%94%BB%E6%95%B0%E6%8E%92%E5%BA%8F-sortstroke)
     + [5.13.9 将数字表示的声调转为拼音声调: shapeSpell](#5139-%E5%B0%86%E6%95%B0%E5%AD%97%E8%A1%A8%E7%A4%BA%E7%9A%84%E5%A3%B0%E8%B0%83%E8%BD%AC%E4%B8%BA%E6%8B%BC%E9%9F%B3%E5%A3%B0%E8%B0%83-shapespell)
+    + [5.13.10 判断拼音是否有音调: hasTone](#51310-%E5%88%A4%E6%96%AD%E6%8B%BC%E9%9F%B3%E6%98%AF%E5%90%A6%E6%9C%89%E9%9F%B3%E8%B0%83-hastone)
   * [5.14 自定义数据](#514-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE)
     + [5.14.1 setSpell](#5141-setspell)
     + [5.14.2 setSpellDefault](#5142-setspelldefault)
@@ -106,6 +114,12 @@
     + [5.15.4 .version & env](#5154-version--env)
     + [5.15.5 .plugins](#5155-plugins)
   * [5.16 离线使用](#516-%E7%A6%BB%E7%BA%BF%E4%BD%BF%E7%94%A8)
+  * [5.17 自定义插件](#517-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8F%92%E4%BB%B6)
+    + [5.17.1 pluginName属性](#5171-pluginname%E5%B1%9E%E6%80%A7)
+    + [5.17.2 install属性](#5172-install%E5%B1%9E%E6%80%A7)
+    + [5.17.3 getCnChar](#5173-getcnchar)
+    + [5.17.4 js定义插件](#5174-js%E5%AE%9A%E4%B9%89%E6%8F%92%E4%BB%B6)
+    + [5.17.5 ts定义插件](#5175-ts%E5%AE%9A%E4%B9%89%E6%8F%92%E4%BB%B6)
 - [6.参数介绍](#6%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D)
   * [6.1 spell 参数](#61-spell-%E5%8F%82%E6%95%B0)
   * [6.2 stroke 参数](#62-stroke-%E5%8F%82%E6%95%B0)
@@ -147,7 +161,6 @@
       - [6.10.11.14 setPolyPhrase](#6101114-setpolyphrase)
       - [6.10.11.15 setRadical](#6101115-setradical)
       - [6.10.11.16 addXhy](#6101116-addxhy)
-- [7.应用例子](#7%E5%BA%94%E7%94%A8%E4%BE%8B%E5%AD%90)
 
 <!-- tocstop -->
 
@@ -171,7 +184,8 @@
 - 第四章介绍了各种不同环境下cnchar的使用差异
 - 第五章详细介绍了cnchar及其功能库的API使用
 - 第六章列举了各个方法的参数和大量的cnchar使用实例
-- 第七章介绍了一些cnchar使用案例
+
+另外，由于插件较多，编写文档工作量巨大，如有遗漏请参考 [cnchar-types](https://github.com/theajack/cnchar/tree/master/src/cnchar-types) 定义。也欢迎大家一起帮忙完善文档
 
 ### 0.快速使用
 
@@ -189,8 +203,10 @@ import cnchar from 'cnchar';
 
 使用 script 标签使用：
 
+**如果 jsdelivr 挂了可以使用 unpkg (https://unpkg.com/cnchar/cnchar.min.js)**
+
 ```html
-<script src="https://cdn.jsdelivr.net/npm/cnchar/cnchar.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/cnchar/cnchar.min.js"></script>
 <script>
     '汉字'.spell();
     '汉字'.stroke();
@@ -202,34 +218,36 @@ import cnchar from 'cnchar';
 ### 1.功能
 
 1. 获取 **汉字拼音** ，支持首字母、大小写、数组分割、备选 **多音字** 等功能
-2. 支持 **多音词**
-3. 支持 **拼音音调**
-4. 获取汉字 **笔画数** 、支持数组分割
-5. 获取汉字 **笔画顺序** 、笔画详细名称
-6. 支持可视化 **绘制汉字笔画** 、多种绘制模式可选
-7. 支持 **语音合成** 和 **语音识别**
-8. 支持 **汉字组词** 和 **汉字解释**
-9. 支持 **简体字** 、 **繁体字** 、 **火星文** 互转
-10. 支持 **查找** 某拼音的所有 **汉字** ，繁体字，多音字
-11. 支持 **查找** 指定笔画数的所有 **汉字** ，繁体字
-12. 支持 **根据笔画顺序查询** 汉字
-13. 支持 **查询拼音的信息**，包含声母、韵母、音调、音调位置的等
-14. 支持 **繁体字** 拼音、笔画数及以上所有功能，实现和简体字一样的功能
-15. 支持 **成语** 查询功能，可以按照汉字、拼音（声调）、笔画数查询成语
-16. 支持 **歇后语** 查询功能，支持模糊查询
-17. 支持 **偏旁部首** 查询功能
-18. 支持**自定义**拼音笔画等数据，使用更灵活
-19. 
-20. 提供汉字工具方法，方便开发者更便捷高效地 **操作拼音和汉字**
-21. **体积小**，min 版本仅 46 kb，zip 版本 34 kb (含有大量汉字拼音字典)
-22. **多端可用**，可用于 **浏览器、nodejs、小程序/小游戏、ReactNative/Weex/Uniapp/Electron、webpack**...，支持所有 js 能运行的环境
-23. **typescript**，主库及所有插件库均使用typescript开发
-24. 丰富的配置，按功能拆分成插件，按需取用
-25. 支持 **IE9**及以上版本
+2. 支持 **多音词**、**拼音音调**
+3. 获取汉字 **笔画数** 、**笔画顺序** 、笔画详细名称
+4. 支持可视化 **绘制汉字笔画** 、多种绘制模式可选
+5. 支持 **语音合成** 和 **语音识别**
+6. 支持 **汉字组词** 和 **汉字解释**
+7. 支持 **简体字** 、 **繁体字** 、 **火星文** 互转
+8. 支持 **查找** 某拼音的所有 **汉字** ，繁体字，多音字
+9. 支持 **查找** 指定笔画数的所有 **汉字** ，繁体字
+10. 支持 **根据笔画顺序查询** 汉字
+11. 支持 **查询拼音的信息**，包含声母、韵母、音调、音调位置的等
+12. 支持 **繁体字** 拼音、笔画数及以上所有功能，实现和简体字一样的功能
+13. 支持 **成语** 查询功能，可以按照汉字、拼音（声调）、笔画数查询成语
+14. 支持 **歇后语** 查询功能，支持模糊查询
+15. 支持 **偏旁部首** 查询功能
+16. 支持 **随机生成** 拼音、汉字、词语、成语、歇后语、中文名字
+17. 支持 **汉字编码查询** 、 **汉字信息查询**
+18. 支持 **拼音输入法**、**五笔输入法**、支持联想输入
+19. 支持 **自定义插件**，独立简单的接入方式，完整使用cnchar所有功能
+20. 支持 **自定义** 拼音笔画等数据，使用更灵活
+21. 对于部分大词典，支持 **离线使用**、**自定义部署**
+22. 提供汉字工具方法，方便开发者更便捷高效地 **操作拼音和汉字**
+23. **体积小**，min 版本仅 75 kb，zip 版本 50 kb (含有大量汉字拼音字典)
+24. **多端可用**，可用于 **浏览器、nodejs、小程序/小游戏、ReactNative/Weex/Uniapp/Electron、webpack**...，支持所有 js 能运行的环境
+25. **typescript**，主库及所有插件库均使用typescript开发
+26. 丰富的配置，按功能拆分成插件，按需取用
+27. 支持 **IE9**及以上版本
 
-### 2.概览
+### 2.功能及插件概览
 
-考虑到不同的需求，cnchar 的功能被拆分到以下十二个库中，方便开发者按需取用：
+考虑到不同的需求，cnchar 的功能被拆分到以下多个插件库中，方便开发者按需取用：
 
 |     名称     | 描述 |   功能   | 支持版本 | node支持 | 小程序 |
 | :----------: | :------------------------------: | :--------------------: | :--------------------: | :--------------------: | :--------------------: |
@@ -245,6 +263,19 @@ import cnchar from 'cnchar';
 | cnchar-explain  |    汉字解释库    | 支持查询汉字含义 | 3.1.0+ | 是 | 是 |
 | cnchar-voice  |    语音识别和语音合成    | 支持对中文进行发音与合成 | 3.1.0+ | 否 | 部分 |
 | cnchar-data  |    离线词典库    | 用以支持部分插件库的离线使用及自定义部署 | 3.1.0+ | 是 | 是 |
+| cnchar-random  |    随机库    | 随机生成拼音、汉字、词语、成语、歇后语 | 3.2.0+ | 是 | 是 |
+| cnchar-input  |    输入法支持    | 支持拼音和五笔输入法结果 | 3.2.0+ | 是 | 是 |
+| cnchar-code  |    汉字编码库    | 汉字编码查询 | 3.2.0+ | 是 | 是 |
+| cnchar-info  |    汉字信息查询    | 用于查询汉字信息 | 3.2.0+ | 是 | 是 |
+| cnchar-name  |    中文名信息    | 用于随机生成名字等功能 | 3.2.0+ | 是 | 是 |
+
+以下插件库文档不在本readme中维护，请参考以下地址 或前往 [在线文档](https://theajack.github.io/cnchar/doc/cnchar.html)：
+
+1. [cnchar-random](https://github.com/theajack/cnchar/blob/master/vuepress/doc/random.md)
+2. [cnchar-input](https://github.com/theajack/cnchar/blob/master/vuepress/doc/input.md)
+3. [cnchar-code](https://github.com/theajack/cnchar/blob/master/vuepress/doc/code.md)
+4. [cnchar-info](https://github.com/theajack/cnchar/blob/master/vuepress/doc/info.md)
+5. [cnchar-name](https://github.com/theajack/cnchar/blob/master/vuepress/doc/name.md)
 
 ### 3.安装
 
@@ -259,10 +290,10 @@ npm i cnchar
 安装附加功能库：
 
 ```
-npm i cnchar-poly cnchar-order cnchar-trad cnchar-draw cnchar-idiom cnchar-xhy cnchar-radical cnchar-words cnchar-explain cnchar-voice
+npm i cnchar-poly cnchar-order cnchar-trad cnchar-draw cnchar-idiom cnchar-xhy cnchar-radical cnchar-words cnchar-explain cnchar-voice cnchar-random cnchar-code cnchar-input cnchar-info cnchar-name
 ```
 
-当然您也可以按需安装其中的几个，但是 `cnchar` 这个基础库是必须安装的（draw、idiom、xhy、radical四个库可以独立使用）
+当然您也可以按需安装其中的几个，插件库也都可以脱离cnchar独立安装使用，不过部分仓库功能强依赖于cnchar， 如 cnchar-poly cnchar-order cnchar-trad
 
 或者您可以通过安装`cnchar-all`来使用完整功能，这个库引用了上面的所有插件库
 
@@ -272,24 +303,31 @@ npm i cnchar-all
 
 #### 3.2 cdn 引入
 
+**如果 jsdelivr 挂了可以使用 unpkg (https://unpkg.com/cnchar/cnchar.min.js)**
+
 ```html
-<script src="https://cdn.jsdelivr.net/npm/cnchar/cnchar.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/cnchar-poly/cnchar.poly.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/cnchar-order/cnchar.order.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/cnchar-trad/cnchar.trad.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/cnchar-draw/cnchar.draw.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/cnchar-idiom/cnchar.idiom.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/cnchar-xhy/cnchar.xhy.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/cnchar-radical/cnchar.radical.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/cnchar-words/cnchar.words.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/cnchar-explain/cnchar.explain.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/cnchar-voice/cnchar.voice.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/cnchar/cnchar.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/cnchar-poly/cnchar.poly.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/cnchar-order/cnchar.order.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/cnchar-trad/cnchar.trad.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/cnchar-draw/cnchar.draw.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/cnchar-idiom/cnchar.idiom.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/cnchar-xhy/cnchar.xhy.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/cnchar-radical/cnchar.radical.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/cnchar-words/cnchar.words.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/cnchar-explain/cnchar.explain.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/cnchar-voice/cnchar.voice.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/cnchar-random/cnchar.random.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/cnchar-code/cnchar.code.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/cnchar-input/cnchar.input.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/cnchar-info/cnchar.info.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/cnchar-name/cnchar.name.min.js"></script>
 ```
 
-或使用以下cdn，包含了以上十一个库
+或使用以下cdn，包含了以上所有插件库
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/cnchar-all/cnchar.all.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/cnchar-all/cnchar.all.min.js"></script>
 ```
 
 ### 4.使用
@@ -302,15 +340,7 @@ npm 安装好几个库之后：
 // 请保证最先引入 cnchar 基础库，其他几个库顺序无所谓
 import cnchar from 'cnchar';
 import 'cnchar-poly';
-import 'cnchar-order';
-import 'cnchar-trad';
-import 'cnchar-draw';
-import 'cnchar-idiom';
-import 'cnchar-xhy';
-import 'cnchar-radical';
-import 'cnchar-words';
-import 'cnchar-explain';
-import 'cnchar-voice';
+// ... 其他插件请参考第二章 2. 功能及插件概览
 // 插件请按需取用
 
 console.log('汉字'.spell()); // prototype 方式调用
@@ -327,16 +357,10 @@ console.log(cnchar.spell('汉字')); // cnchar api 调用
 // 请保证最先引入 cnchar 基础库，其他几个库顺序无所谓
 var cnchar = require('cnchar');
 var poly = require('cnchar-poly');
-var order = require('cnchar-order');
-var trad = require('cnchar-trad');
-var idiom = require('cnchar-idiom');
-var xhy = require('cnchar-xhy');
-var radical = require('cnchar-radical');
-var words = require('cnchar-words');
-var explain = require('cnchar-explain');
+// ... 其他插件请参考第二章 2. 功能及插件概览
 // 插件请按需取用
 // 注：cnchar-draw，cnchar-voice 在非浏览器环境下不可使用
-cnchar.use(poly, order, trad, idiom, xhy, radical, words, explain);
+cnchar.use(poly);
 
 console.log('汉字'.spell()); // prototype 方式调用
 console.log(cnchar.spell('汉字')); // cnchar api 调用
@@ -349,17 +373,9 @@ console.log(cnchar.spell('汉字')); // cnchar api 调用
 原生浏览器环境就需要使用 script 标签引入 js 文件：
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/cnchar/cnchar.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/cnchar-poly/cnchar.poly.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/cnchar-order/cnchar.order.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/cnchar-trad/cnchar.trad.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/cnchar-draw/cnchar.draw.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/cnchar-idiom/cnchar.idiom.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/cnchar-xhy/cnchar.xhy.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/cnchar-radical/cnchar.radical.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/cnchar-words/cnchar.words.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/cnchar-explain/cnchar.explain.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/cnchar-voice/cnchar.voice.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/cnchar/cnchar.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/cnchar-poly/cnchar.poly.min.js"></script>
+<!--... 其他插件请参考第二章 2. 功能及插件概览-->
 <script>
     console.log('汉字'.spell()); // prototype 方式调用
     console.log(cnchar.spell('汉字')); // cnchar api 调用
@@ -408,7 +424,7 @@ cnchar.draw('你好', options); // options 为可选参数， 在5.2.2 种会详
 
 运行结果如下：
 
-![draw.jpg](https://cdn.jsdelivr.net/gh/theajack/cnchar@gh-pages/assets/readme/draw.jpg)
+![draw.jpg](https://fastly.jsdelivr.net/gh/theajack/cnchar@gh-pages/assets/readme/draw.jpg)
 
 该库支持脱离cnchar 独立使用
 
@@ -745,7 +761,7 @@ cnchar在2.2.0加入了成语功能，启用该功能需要安装 `cnchar-idiom`
 使用方式如下：
 
 ```ts
-cnchar.idiom(text:string, ...idiomArgs: Array<idiomArg>):Array<string>;
+cnchar.idiom(text: string | number | Array<string|number>):Array<string>;
 ```
 
 看一个具体例子
@@ -754,11 +770,11 @@ cnchar.idiom(text:string, ...idiomArgs: Array<idiomArg>):Array<string>;
 // 根据汉字查询成语，末尾的空格可以省略
 cnchar.idiom(['五', '', '十', '']); // ['五风十雨', '五光十色']
 // 根据笔画数查询成语，0表示匹配任意笔画，末尾的0可以省略
-cnchar.idiom([4, 6, 2, 0], 'stroke'); // ["不当人子", ... ]
+cnchar.idiom([4, 6, 2, 0]); // ["不当人子", ... ]
 // 根据拼音查询成语
-cnchar.idiom('shang', 'spell'); // ["伤风败化", "伤风败俗", ...]
+cnchar.idiom('shang'); // ["伤风败化", "伤风败俗", ...]
 // 带音调
-cnchar.idiom('shang4', 'spell', 'tone'); // ["上兵伐谋", "上不着天，下不着地", ... ]
+cnchar.idiom('shang4'); // ["上兵伐谋", "上不着天，下不着地", ... ]
 ```
 
 使用cdn引用时，会在window对向上暴露 `CncharIdiom` 对象
@@ -792,23 +808,18 @@ cnchar.xhy('上晃下摇', 'fuzzy', 'answer', 'second'); // ['醉汉过铁索桥
 
 cnchar在 2.2.5 加入了偏旁部首功能，启用该功能需要安装 `cnchar-radical` 功能库，该库可以独立于cnchar主库运行
 
+且于 3.2.0 版本进行了升级，支持了查询汉字结构和偏旁笔画数
+
 感谢 `kewell-tsao` 提供的 pr
 
 使用方式如下：
 
 ```ts
-cnchar.radical(text:string | Array<string>, ...radicalArgs: Array<radicalArg>): string | Array<string>;
-```
-
-看一个具体例子
-
-```js
-cnchar.radical('你'); // "亻",
-cnchar.radical('你好呀'); // "亻女口"
-// 返回数组
-cnchar.radical('你好呀', 'array'); // ["亻", "女", "口"]
-// 传入数组会默认返回数组
-cnchar.radical(["你", "好", "呀"]); // ["亻", "女", "口"]
+cnchar.radical(text:string | Array<string>): Array<{
+    radical: string;
+    struct: TStruct;
+    radicalCount: number;
+}>
 ```
 
 使用cdn引用时，会在window对向上暴露 `CncharRadical` 对象
@@ -956,7 +967,7 @@ transformTone spell参数 支持使用 v 代替 ü，支持使用末尾带数字
 
 ##### 5.13.3 是否是汉字: isCnChar
 
-`isCnChar` 方法用于判断一个字符是否是汉字
+`isCnChar` 方法用于判断字符串是否全部是汉字
 
 ```ts
 cnchar.isCnChar(word: string): boolean;
@@ -1067,6 +1078,12 @@ reverse 参数表示开启反向转换 `lǘ` => `lv2`
 cnchar.shapeSpell(spell: string, reverse?: boolean): string;
 ```
 
+##### 5.13.10 判断拼音是否有音调: hasTone
+
+```ts
+cnchar.hasTone(spell: string): boolean;
+```
+
 #### 5.14 自定义数据
 
 由于 cnchar 数据来源于网络，虽然经过了大量修改，但是还是难免会有错漏
@@ -1126,8 +1143,8 @@ cnchar.setOrder(json: {[key: string]: string}): void;
 设置汉字偏旁部首， 依赖 `cnchar-radical` 库
 
 ```ts
-cnchar.radical.setRadical(word: string, radical: string): void;
-cnchar.radical.setRadical(json: {[key: string]: string}): void;
+cnchar.radical.setRadical(word: string, radical: IRadicalResult): void;
+cnchar.radical.setRadical(json: {[key: string]: IRadicalResult}): void;
 ```
 
 ##### 5.14.7 addXhy
@@ -1164,6 +1181,8 @@ cnchar.explain.addExplain(words: string, explain: string): void;
 cnchar.voice.addVoice(json: Json<string>): void;
 cnchar.voice.addVoice(words: string, url: string): void;
 ```
+
+[其他自定义数据api](https://github.com/theajack/cnchar/blob/master/vuepress/doc/custom.md)
 
 #### 5.15 其他 api
 
@@ -1202,7 +1221,6 @@ var strokeArg = cnchar.type.stroke;
 var orderToWordArg = cnchar.type.orderToWord;
 var spellToWordArg = cnchar.type.spellToWord;
 var strokeToWordArg = cnchar.type.strokeToWord;
-var idiomArg = cnchar.type.idiom;
 var xhyArg = cnchar.type.xhy;
 var radicalArg = cnchar.type.radical;
 var wordsArg = cnchar.type.words;
@@ -1218,8 +1236,6 @@ orderToWordArg 最多可用值： `['match','matchorder','contain','start','arra
 spellToWordArg 最多可用值： `['simple','trad','poly','alltone','array']`
 
 strokeToWordArg 最多可用值： `['simple','trad','array']`
-
-idiomArg 最多可用值： `['char','stroke','spell','tone']`
 
 xhyArg 最多可用值： `['fuzzy','answer','second']`
 
@@ -1260,6 +1276,12 @@ var env = cnchar.env;
 var plugins = cnchar.plugins; // array 类型
 ```
 
+可以使用 hasPlugin api 来判断是否引入了某插件
+
+```js
+cnchar.hasPlugin('draw')
+```
+
 #### 5.16 离线使用
 
 cnchar-voice, cnchar-draw, cnchar-explain 由于使用了大量的在线词典和资源
@@ -1273,6 +1295,96 @@ cnchar 在 3.1.0 版本新增了 [cnchar-data](https://github.com/cn-char/cnchar
 另外 voice, draw, explain 三个仓库也支持独立 setResourceBase
 
 具体请参考 [cnchar-types](https://github.com/theajack/cnchar/tree/master/src/cnchar-types)
+
+#### 5.17 自定义插件
+
+cnchar 采用的是独立的插件形式，定义一个 cnchar 插件非常简单且不依赖任何第三方包，并且通过 cnchar 注入，可以访问到任何 cnchar 和其他插件的方法
+
+cnchar 所有现有插件都会携带有 dict属性用来暴露内部的字典，以方便其他插件可以直接使用，具体请参考[插件声明](https://github.com/theajack/cnchar/tree/master/src/cnchar-types/plugin)
+
+##### 5.17.1 pluginName属性
+
+一个 cnchar 插件只有一个必选属性 pluginName
+
+表示插件名称，cnchar.use 插件之后，会注入到 cnchar.plugins 中，且插件对象会被挂载到 cnchar 上
+
+cnchar 所有现有插件都会携带有 dict属性用来暴露内部的字典，以方便其他插件可以直接使用
+
+##### 5.17.2 install属性
+
+install 是一个方法，cnchar.use 插件之后， cnchar对象会调用install方法，并将cnchar对象作为回调带入插件中，**可以通过cnchar对象访问cnchar和其他插件方法**
+
+##### 5.17.3 getCnChar
+
+插件被安装成功之后，会注入一个 getCnChar 到插件上，可以获取到cnchar对象
+
+其他插件属性可以参考 [common.d.ts](https://github.com/theajack/cnchar/blob/master/src/cnchar-types/main/common.d.ts)
+
+##### 5.17.4 js定义插件
+
+```js
+export default {
+    pluginName: 'custom',
+    install (cnchar) {
+        console.log(cnchar);
+    },
+    version: '0.0.1',
+    log: () => console.log('hello cnchar-plugin!');
+}
+```
+
+##### 5.17.5 ts定义插件
+
+如果使用ts，则可以安装 `cnchar-types` 来添加cnchar声明，当然这不是必须的
+
+推荐使用 cnchar-types, 首先需要安装 `cnchar-types`
+
+```
+npm i cnchar-types
+```
+
+```ts
+import ICnChar, {IPlugin} from 'cnchar-types';
+
+const plugin: IPlugin = {
+    pluginName: 'custom',
+    install (cnchar: ICnChar) {
+        console.log(cnchar);
+    },
+    version: '0.0.1',
+    log: () => console.log('hello cnchar-plugin!');
+};
+
+declare module 'cnchar-types/main/index' {
+    interface ICnChar {
+        custom: {
+            pluginName: 'custom';
+            version: string;
+            log: () => void;
+        };
+    }
+}
+
+export default plugin;
+```
+
+不使用 cnchar-types
+
+```ts
+const plugin: {
+    pluginName: string;
+    install: (cnchar: any) => any;
+} = {
+    pluginName: 'custom',
+    install (cnchar: any) {
+        console.log(cnchar);
+    },
+    version: '0.0.1',
+    log: () => console.log('hello cnchar-plugin!');
+};
+export default plugin;
+```
+
 
 ### 6.参数介绍
 
@@ -1387,20 +1499,11 @@ cnchar.strokeToWord(count,arg1,arg2,...);
 
 #### 6.6 idiom 参数
 
-参数调用如下，value表示查询对象，可以试拼音汉字笔画数，所有 arg 参数都是可选的
+参数调用如下，value表示查询对象，可以试拼音汉字笔画数
 
 ```js
-cnchar.idiom(value,arg1,arg2,...);
+cnchar.idiom(value);
 ```
-
-|  参数   |    作用    | 是否默认 |  依赖库   |   备注    |
-| :-----: | :----: | :------: | :---: | :---: |
-|  char  | 根据汉字查询成语 |    是    |  --  |  默认值无需调用  |
-|  stroke   | 根据笔画数查询成语 |    否    | -- |  优先级高于char  |
-|  spell  | 根据拼音查询成语 |    否    |  --  |   优先级高于stroke  |
-|  tone  | 启用拼音音调查询 |    否    |  --  |  仅在spell模式下生效  |
-
-注：优先级 `spell` > `stroke` > `char`
 
 #### 6.7 xhy 参数
 
@@ -1420,14 +1523,11 @@ cnchar.xhy(value,arg1,arg2,...);
 
 参数调用如下，value表示需要查询偏旁的汉字，可以是字符串或数组
 
-```js
-cnchar.radical(value,arg1,arg2,...);
-```
+如果引用了 cnchar-trad, 则会自动识别繁体字
 
-|  参数   |    作用    | 是否默认 |  依赖库   |   备注    |
-| :-----: | :----: | :------: | :---: | :---: |
-|  array   | 是否返回数组 |    否    | -- |  当传入为数组时默认返回数组  |
-|  trad   | 开启繁体字识别 |    否    | cnchar-trad |  开启繁体字识别  |
+```js
+cnchar.radical(value);
+```
 
 #### 6.9 words 与 explain 参数
 
@@ -1459,7 +1559,7 @@ import cnchar from 'cnchar';
 script 标签引用 方式
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/theajack/cnchar/dist/cnchar.latest.min.js"></script>
+<script src="https://fastly.jsdelivr.net/gh/theajack/cnchar/dist/cnchar.latest.min.js"></script>
 <script>
     // do something
 </script>
@@ -1614,9 +1714,9 @@ cnchar.convert.sparkToTrad('①个亾');
 
 ```js
 cnchar.idiom(['五', '', '十', '']) // ['五风十雨', '五光十色']
-cnchar.idiom([4, 6, 2, 6], 'stroke') // ['五光十色']
-cnchar.idiom('shang', 'spell') // ['伤风败化', '伤风败俗', ... ]
-cnchar.idiom('shang4', 'spell', 'tone') // ['伤风败化', '伤风败俗', ... ]
+cnchar.idiom([4, 6, 2, 6]) // ['五光十色']
+cnchar.idiom('shang') // ['伤风败化', '伤风败俗', ... ]
+cnchar.idiom('shang4') // ['伤风败化', '伤风败俗', ... ]
 ```
 
 ##### 6.10.6 cnchar-xhy 库功能
@@ -1635,10 +1735,9 @@ cnchar.xhy('上晃下摇', 'fuzzy', 'answer', 'second') // ['醉汉过铁索桥'
 该库为cnchar扩展了偏旁部首功能
 
 ```js
-cnchar.radical('你'); // "亻",
-cnchar.radical('你好呀'); // "亻女口"
-cnchar.radical('你好呀', 'array'); // ["亻", "女", "口"]
-cnchar.radical(["你", "好", "呀"]); // ["亻", "女", "口"]
+cnchar.radical('你'); // [{radicalCount: 2, radical: '亻', struct: '左右结构'}],
+cnchar.radical('你好呀'); // ...
+cnchar.radical(["你", "好", "呀"]); // ...
 ```
 
 ##### 6.10.8 cnchar-words
@@ -1830,10 +1929,10 @@ cnchar.setPolyPhrase({ // 多个
 
 ```js
 // 用于添加cnchar中不包含的汉字 或修改 cnchar中有误的汉字
-cnchar.radical.setRadical('x', 'x');
-cnchar.radical.setRadical({ // 多个
-    'x': 'x',
-    'y': 'y'
+cnchar.radical.setRadical('x', {radical:'', struct: '', radicalCount: 0});
+cnchar.radical.setRadical({ // Multiple Chinese characters
+    'x': {radical:'', struct: '', radicalCount: 0},
+    'y': {radical:'', struct: '', radicalCount: 0}
 });
 ```
 
@@ -1849,9 +1948,7 @@ cnchar.xhy.addXhy([ // 多条
 ]);
 ```
 
-### 7.应用例子
-
-[汉字打字游戏](https://theajack.github.io/type/) | [打字弹钢琴](https://theajack.github.io/piano/)
+[其他自定义数据api](https://github.com/theajack/cnchar/blob/master/vuepress/doc/custom.md)
 
 **致谢**
 

@@ -6,10 +6,14 @@
         <div class='title'>cnchar</div>
         <div class='desc'>功能全面、多端支持的汉字拼音笔画js库</div>
         <div class='test'>
-            <el-input v-model='text' class='test-input' type='text' placeholder='输入一些汉字试试' @input='input'></el-input>
-            <div class='btn-w' v-show="supportVoice">
-                <el-button type='default' @click='regonize'>语音识别 <i class="ei-music"></i></el-button>
-                <el-button type='default' @click="speak">语音合成 <i class="ei-volume-up"></i></el-button>
+            <el-input v-if='loaded' v-model='text' class='test-input' type='text' placeholder='输入一些汉字试试' @input='input'></el-input>
+            <div v-else>
+                <i style='vertical-align: middle;' class='ei-spinner-snake ei-spin'></i>
+                <span style='vertical-align: middle;'>cnchar 正在加载中</span>
+            </div>
+            <div class='btn-w' v-show='supportVoice'>
+                <el-button type='default' @click='regonize'>语音识别 <i class='ei-music'></i></el-button>
+                <el-button type='default' @click='speak'>语音合成 <i class='ei-volume-up'></i></el-button>
             </div>
             <div class='show-area' v-show='text!==""'>
                 <div>{{spell}} <span class='split'>|</span> 共{{stroke}}笔</div>
@@ -21,17 +25,17 @@
         
         <div class='start-w'>
             <el-button type='primary' @click='start'>开始 <i class='ei-location-arrow'></i></el-button>
-            <el-button type='primary' @click='run'>运行 <i class='ei-play'></i></el-button>
+            <el-button type='primary' @click='run'>运行 <i class='ei-cube-alt'></i></el-button>
         </div>
         <div class='feature-w'>
             <div class='f-i'>
-                <div class='f-t'><i class='ei-rocket'></i>功能全面</div>
+                <a style='font-weight: normal;' href='/cnchar/guide/intro.html#_2-%E5%8A%9F%E8%83%BD'><div class='f-t'><i class='ei-rocket'></i>功能全面</div></a>
                 <div class='f-des'>拼音/笔画数/多音字词</div>
                 <div class='f-des'>多种模式绘制汉字</div>
                 <div class='f-des'>语音识别/语音合成</div>
                 <div class='f-des'>繁体字/火星文</div>
-                <div class='f-des'>汉字笔顺/偏旁部首</div>
-                <div class='f-des'>汉字推算/拼音排序</div>
+                <div class='f-des'>笔顺/偏旁部首/推算/排序</div>
+                <div class='f-des'>随机生成/输入法</div>
                 <div class='f-des'>...</div>
             </div>
             <div class='f-i'>
@@ -46,16 +50,16 @@
             </div>
             <div class='f-i'>
                 <div class='f-t'><i class='ei-cubes'></i>按需取用</div>
-                <div class='f-des'>支持自定义数据</div>
-                <div class='f-des'>支持IE9+</div>
+                <div class='f-des'>自定义插件</div>
+                <div class='f-des'>自定义数据</div>
+                <div class='f-des'>自定义部署/离线使用</div>
                 <div class='f-des'>功能分包/简单易用</div>
-                <div class='f-des'>体积小巧</div>
-                <div class='f-des'>离线使用/自定义部署</div>
+                <div class='f-des'>体积小巧/支持IE9+</div>
                 <div class='f-des'>npm+cdn</div>
                 <div class='f-des'>...</div>
             </div>
         </div>
-        <div class='copy-right'>MIT Licensed | Copyright © 2020 present <a href='https://www.github.com/theajack' target='view_window'>theajack</a></div>
+        <div class='copy-right'>MIT Licensed | Copyright © 2020 - present <a href='https://www.github.com/theajack' target='view_window'>theajack</a></div>
         <div id='comment'>
 
         </div>
@@ -73,32 +77,43 @@
                 spark: '',
                 order: '',
                 supportVoice: false,
+                loaded: false,
             };
         },
-        mounted(){
-            if(location.hash){
-                this.text = decodeURIComponent(location.hash).substring(1);
-                this.applyText();
+        mounted () {
+            if (window.cnchar) {
+                this.init();
+            } else {
+                window.addEventListener('load', () => {
+                    this.init();
+                });
             }
-            this.supportVoice = window.cnchar.voice.speak.supported && window.cnchar.voice.recognize.supported;
         },
         methods: {
+            init () {
+                this.loaded = true;
+                this.supportVoice = window.cnchar.voice && window.cnchar.voice.speak.supported && window.cnchar.voice.recognize.supported;
+                if (location.hash) {
+                    this.text = decodeURIComponent(location.hash).substring(1);
+                    this.applyText();
+                }
+            },
             input () {
                 if (this.text) {
                     location.hash = this.text;
                     this.applyText();
                 }
             },
-            applyText(){
+            applyText () {
                 if (this.text) {
                     this.spell = this.text.spell('array', 'tone').join(' ');
                     this.stroke =  this.text.stroke();
                     this.trad =  this.text.convertSimpleToTrad('trad');
                     this.spark =  this.text.convertSimpleToSpark('spark');
                     this.order =  JSON.stringify(this.text.stroke('order', 'shape')).replace(/"/g, '').replace(/null/g, '无');
-                    let str = this.pickCnChar(this.text);
-                    let el = document.getElementById('draw-area');
-                    if(el) {
+                    const str = this.pickCnChar(this.text);
+                    const el = document.getElementById('draw-area');
+                    if (el) {
                         el.innerHTML = '';
                         if (str !== '') {
                             window.cnchar.draw(str, {el});
@@ -107,7 +122,7 @@
                 }
             },
             isCnChar (word) {
-                let unicode = word.charCodeAt(0);
+                const unicode = word.charCodeAt(0);
                 return unicode >= 19968 && unicode <= 40869;
             },
             pickCnChar (text) {
@@ -120,7 +135,7 @@
                 return v;
             },
             start () {
-                window.location.href = '/cnchar/guide/';
+                window.location.href = '/cnchar/guide/intro';
             },
             run () {
                 window.open('https://theajack.github.io/jsbox/?github=theajack.cnchar@master');
@@ -130,16 +145,16 @@
                     onstart: () => {
                         this.$toast('录音中，请说一些中文');
                     },
-                    onend: (s)=> {
+                    onend: (s) => {
                         this.text = s;
                         this.applyText();
                     }
                 });
             },
             speak () {
-                if(!this.text){
+                if (!this.text) {
                     this.$toast('请先输入一些中文');
-                }else{
+                } else {
                     window.cnchar.voice.speak(this.text);
                 }
             }

@@ -11,6 +11,14 @@ import '../src/cnchar/plugin/words';
 import '../src/cnchar/plugin/idiom';
 import '../src/cnchar/plugin/voice';
 import '../src/cnchar/plugin/explain';
+import '../src/cnchar/plugin/random';
+import '../src/cnchar/plugin/code';
+import '../src/cnchar/plugin/info';
+import '../src/cnchar/plugin/input';
+import '../src/cnchar/plugin/name';
+import custom from './custom-plugin';
+cnchar.use(custom);
+
 
 // import spell from '../src/main/spell-dict-jian.json';
 // // import cncharDraw from '../src/plugin/draw';
@@ -56,7 +64,7 @@ console.log('美好的地方'.spell('tone'));
 // 根据汉字查询成语，末尾的空格可以省略
 console.log(cnchar.idiom(['五', '', '十', ''])); // ['五风十雨', '五光十色']
 // 根据笔画数查询成语，0表示匹配任意笔画，末尾的0可以省略
-console.log(cnchar.idiom([4, 6, 2, 0], 'stroke')); // ["不当人子", ... ]
+console.log(cnchar.idiom([4, 6, 2, 0])); // ["不当人子", ... ]
 
 
 console.log('一个人'.convertSimpleToTrad()); // 返回 "壹個人" 等价于 cnchar.convert.simpleToTrad

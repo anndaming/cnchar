@@ -1,21 +1,20 @@
-import {ICnChar} from 'cnchar-types/main';
 import {IXHY} from 'cnchar-types/plugin/xhy';
 import {IPlugin} from 'cnchar-types/main/common';
-import {xhy, arg, addXhy, setCnchar} from './xhy';
+import {xhy, arg, addXhy, setCnchar, getDict} from './xhy';
 
-const plugin: IPlugin = {
+const plugin: IPlugin & IXHY = Object.assign(xhy, {
     pluginName: 'xhy',
-    install (cnchar: ICnChar) {
+    install (cnchar) {
         setCnchar(cnchar);
-        xhy.addXhy = addXhy;
-        return {xhy};
     },
-    args: arg
-};
+    addXhy,
+    args: arg,
+    dict: getDict(),
+} as IPlugin);
 
 if (typeof window === 'object') {
-    window.CncharXHY = xhy;
+    window.CncharXHY = plugin;
     if (window.CnChar) window.CnChar.use(plugin);
 }
 
-export default Object.assign(xhy, plugin) as IXHY & IPlugin;
+export default plugin;

@@ -240,8 +240,10 @@ cnchar.isPolyWord('国') // false
 
 如 `lv2` 会被转换成 `lǘ`，`ta1` 会被转换成 `tā`， 方便用户输入
 
+reverse 参数表示开启反向转换 `lǘ` => `lv2`
+
 ```ts
-cnchar.shapeSpell(spell: string): string;
+cnchar.shapeSpell(spell: string, reverse?: boolean): string;
 ```
 
 使用实例
@@ -249,4 +251,18 @@ cnchar.shapeSpell(spell: string): string;
 ```js
 cnchar.shapeSpell('lv2') // lǘ
 cnchar.shapeSpell('shang4') // shàng
+cnchar.shapeSpell('shàng') // shang4
+```
+
+##### 5.13.10 判断拼音是否有音调: hasTone
+
+```ts
+cnchar.hasTone(spell: string): boolean;
+```
+
+```js
+cnchar.hasTone('lv2') // true
+cnchar.hasTone('shang4') // true
+cnchar.hasTone('shàng') // true
+cnchar.hasTone('shang') // false
 ```

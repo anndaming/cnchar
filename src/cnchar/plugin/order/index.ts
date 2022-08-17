@@ -1,8 +1,8 @@
 import {ICnChar, StrokeArg} from 'cnchar-types/main';
 import {ICncharTool} from 'cnchar-types/main/tool';
 import {orders, strokeTable} from './dict';
-import initOrderToWord from './orderToWord';
-import {ICnCharOrder, TOrderArg, TStrokeOrderReturn} from 'cnchar-types/plugin/order';
+import initOrderToWord, {orderToWord} from './orderToWord';
+import {IOrder, TOrderArg, TStrokeOrderReturn} from 'cnchar-types/plugin/order';
 import {IPlugin} from 'cnchar-types/main/common';
 
 let _: ICncharTool; // 工具方法
@@ -28,7 +28,7 @@ function _order (str: string, ...args: Array<StrokeArg>): TStrokeOrderReturn[] {
     _.checkArgs('stroke', args);
     // 多音字参数参数将被忽略
     const res = [];
-    for (var i = 0; i < strs.length; i++) {
+    for (let i = 0; i < strs.length; i++) {
         res[i] = orders[strs[i]]; // 字母版笔画表
     }
     return orderWithLetters(res, strs, args);
@@ -44,7 +44,7 @@ function orderWithLetters (
     if (_.has(args, arg.letter)) {
         return res;
     }
-    for (var i = 0; i < res.length; i++) {
+    for (let i = 0; i < res.length; i++) {
         if (igList.indexOf(i) === -1 && typeof res[i] === 'string') {
             res[i] = getStrokeSingle(strs[i], res[i] as string, args);
         }
@@ -60,7 +60,7 @@ function getStrokeSingle (
     if (typeof order === 'undefined') {
         return str;
     }
-    var isDetail = _.has(args, arg.detail);
+    const isDetail = _.has(args, arg.detail);
     let name = arg.letter;
     if (!isDetail) {
         if (_.has(args, arg.shape)) {
@@ -79,8 +79,8 @@ function getStrokeSingle (
     if (name === arg.letter) {
         return order;
     }
-    var arr = [];
-    for (var i = 0; i < order.length; i++) {
+    const arr = [];
+    for (let i = 0; i < order.length; i++) {
         if (isDetail) {
             arr[i] = strokeTable[order[i]];
         } else {
@@ -90,7 +90,7 @@ function getStrokeSingle (
     return arr;
 }
 
-function install (cnchar: ICnChar & ICnCharOrder): void {
+function install (cnchar: ICnChar) {
     const _old = cnchar._origin.stroke;
     _ = cnchar._;
     
@@ -115,12 +115,19 @@ function install (cnchar: ICnChar & ICnCharOrder): void {
     initOrderToWord(cnchar);
 }
 
-const plugin: IPlugin = {
+const plugin: IPlugin & IOrder = {
     pluginName: 'order',
-    install: install,
+    setOrder: setOrder,
+    orderToWord: orderToWord,
+    install,
+    dict: {
+        orders,
+        strokeTable,
+    },
 };
 
 if (typeof window === 'object' && window.CnChar) {
+    window.CncharOrder = plugin;
     window.CnChar.use(plugin);
 }
 

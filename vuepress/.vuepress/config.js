@@ -9,7 +9,7 @@ module.exports = {
         if (NODE_ENV === 'production') {
             return {
                 output: {
-                    publicPath: 'https://cdn.jsdelivr.net/gh/theajack/cnchar@gh-pages/'
+                    publicPath: 'https://fastly.jsdelivr.net/gh/theajack/cnchar@gh-pages/'
                     // publicPath: '/docs/' // debug
                 },
                 resolve: {
@@ -36,7 +36,7 @@ module.exports = {
     base: '/cnchar/', // gh-pages分支这里需要改成 / 因为 cnchar.js.org的配置
     // 注入到当前页面的 HTML <head> 中的标签
     head: [
-        ['link', {rel: 'icon', href: 'https://cdn.jsdelivr.net/gh/theajack/cnchar@gh-pages/assets/v1/images/i.ico'}], // 增加一个自定义的 favicon
+        ['link', {rel: 'icon', href: 'https://fastly.jsdelivr.net/gh/theajack/cnchar@gh-pages/assets/v1/images/i.ico'}], // 增加一个自定义的 favicon
     ],
     // dest: './dist', //打包位置
     port: 6868, // 端口号
@@ -55,8 +55,15 @@ module.exports = {
         // 顶部导航栏配置
         nav: [
             {text: '主页', link: '/'}, // 内部链接 以docs为根目录
-            {text: '使用说明', link: '/guide/'},
             {text: 'GitHub', link: 'https://www.github.com/theajack/cnchar'},
+            {
+                text: '使用说明',
+                items: [
+                    {text: '简介', link: '/guide/intro'},
+                    {text: '快速上手', link: '/guide/start'},
+                    {text: '更新日志', link: '/guide/version'},
+                ]
+            },
             {
                 text: '文档',
                 // 这里是下拉列表展现形式。
@@ -72,9 +79,15 @@ module.exports = {
                     {text: 'cnchar-words: 组词', link: '/doc/words'},
                     {text: 'cnchar-explain: 释义', link: '/doc/explain'},
                     {text: 'cnchar-voice: 语音', link: '/doc/voice'},
+                    {text: 'cnchar-random: 随机生成', link: '/doc/random'},
+                    {text: 'cnchar-input: 输入法', link: '/doc/input'},
+                    {text: 'cnchar-code: 编码', link: '/doc/code'},
+                    {text: 'cnchar-name: 姓名', link: '/doc/name'},
+                    {text: 'cnchar-info: 汉字信息', link: '/doc/info'},
                     {text: '工具方法', link: '/doc/tool'},
+                    {text: '自定义插件', link: '/doc/plugin'},
                     {text: '自定义数据', link: '/doc/custom'},
-                    {text: '离线使用', link: '/doc/offline'},
+                    {text: '自定义部署:离线使用', link: '/doc/offline'},
                 ],
             },
             {
@@ -99,62 +112,26 @@ module.exports = {
                     collapsable: false, // 可选的, 右侧侧边栏是否展开,默认值是 true
                     // 如果组件很多时，建议将children配置单独放到一个js文件中，然后进行引入
                     children: [
-                        {
-                            title: 'cnchar',
-                            path: 'cnchar',
-                        },
-                        {
-                            title: 'cnchar-poly',
-                            path: 'poly',
-                        },
-                        {
-                            title: 'cnchar-order',
-                            path: 'order',
-                        },
-                        {
-                            title: 'cnchar-trad',
-                            path: 'trad',
-                        },
-                        {
-                            title: 'cnchar-draw',
-                            path: 'draw',
-                        },
-                        {
-                            title: 'cnchar-idiom',
-                            path: 'idiom',
-                        },
-                        {
-                            title: 'cnchar-xhy',
-                            path: 'xhy',
-                        },
-                        {
-                            title: 'cnchar-radical',
-                            path: 'radical',
-                        },
-                        {
-                            title: 'cnchar-words',
-                            path: 'words',
-                        },
-                        {
-                            title: 'cnchar-explain',
-                            path: 'explain',
-                        },
-                        {
-                            title: 'cnchar-voice',
-                            path: 'voice',
-                        },
-                        {
-                            title: '工具方法',
-                            path: 'tool',
-                        },
-                        {
-                            title: '自定义数据',
-                            path: 'custom',
-                        },
-                        {
-                            title: '离线使用',
-                            path: 'offline',
-                        },
+                        {title: 'cnchar', path: 'cnchar'},
+                        {title: 'cnchar-poly', path: 'poly'},
+                        {title: 'cnchar-order', path: 'order'},
+                        {title: 'cnchar-trad', path: 'trad'},
+                        {title: 'cnchar-draw', path: 'draw'},
+                        {title: 'cnchar-idiom', path: 'idiom'},
+                        {title: 'cnchar-xhy', path: 'xhy'},
+                        {title: 'cnchar-radical', path: 'radical'},
+                        {title: 'cnchar-words', path: 'words'},
+                        {title: 'cnchar-explain', path: 'explain'},
+                        {title: 'cnchar-voice', path: 'voice'},
+                        {title: 'cnchar-random', path: 'random'},
+                        {title: 'cnchar-input', path: 'input'},
+                        {title: 'cnchar-code', path: 'code'},
+                        {title: 'cnchar-name', path: 'name'},
+                        {title: 'cnchar-info', path: 'info'},
+                        {title: '工具方法', path: 'tool'},
+                        {title: '自定义插件', path: 'plugin'},
+                        {title: '自定义数据', path: 'custom'},
+                        {title: '自定义部署:离线使用', path: 'offline'},
                     ],
                 },
             ],
@@ -166,15 +143,11 @@ module.exports = {
                     children: [
                         {
                             title: '简介',
-                            path: './',
+                            path: 'intro',
                         },
                         {
                             title: '快速上手',
                             path: 'start',
-                        },
-                        {
-                            title: '文档',
-                            path: '/doc/cnchar',
                         },
                         {
                             title: '更新日志',

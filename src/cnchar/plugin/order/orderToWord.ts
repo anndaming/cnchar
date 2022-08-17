@@ -21,7 +21,7 @@ export default function initOrderToWord (cnchar: ICnChar & ICnCharOrder) {
     _ = cnchar._;
 }
 
-const orderToWord = ((
+export const orderToWord = ((
     input: string | Array<OrderName>,
     ...args: Array<OrderToWordArg>
 ): string | Array<string> => {
@@ -119,9 +119,6 @@ const base: IBase = (
         }
     } else { // 默认是严格匹配笔画序序列
         for (const k in dict) {
-            if (dict[k].length > letters.length) {
-                break;
-            }
             if (dict[k] === letters) {
                 res.push(k);
             }

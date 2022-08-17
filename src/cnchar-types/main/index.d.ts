@@ -1,4 +1,4 @@
-import {IPlugin} from './common';
+import {IPlugin, Json} from './common';
 import {ICncharTool} from './tool';
 
 export declare type SpellArg = 'array' | 'low' | 'up' | 'first' | 'poly' | 'tone' | 'simple' | 'trad' | 'flat';
@@ -15,11 +15,13 @@ export declare type AllArgs = SpellArg | StrokeArg
     | SpellToWordArg | StrokeToWordArg | OrderToWordArg
     | IdomArg | SortSpellArg | TradArg | XhyArg;
 
-export declare type PluginArg = 'order' | 'trad' | 'poly' | 'draw' | 'idiom' | 'xhy' | 'radical' | string;
+export declare type PluginArg = 'order' | 'trad' | 'poly' | 'draw' | 'idiom' | 'xhy' |
+    'radical' | 'code' | 'input' | 'random' | 'info' | string;
+
 export declare type ToneType = 0 | 1 | 2 | 3 | 4;
 export declare type CompareType = 'more' | 'less' | 'even' | 'error';
 
-export declare interface ISpellInfoReturn {
+export interface ISpellInfoReturn {
     spell: string;
     initial: string;
     final: string;
@@ -33,11 +35,21 @@ export declare type TypeValueObject = {
     [prop in AllArgs]?: AllArgs;
 };
 
-export declare interface ISpell {(sentence: string, ...args: Array<SpellArg>): string | Array<any>;}
+export interface ISpell {(sentence: string, ...args: Array<SpellArg>): string | Array<any>;}
 
 declare interface IStroke {(sentence: string, ...args: Array<StrokeArg>): number | Array<any>;}
 
 export interface ICnChar {
+    pluginName: string,
+    dict: {
+        spell: Json<string>;
+        stroke: Json<string>;
+        spellDefault: Json<string>;
+        info: {
+            initial: string[];
+            polyWord: string;
+        };
+    },
     spell: ISpell;
     stroke: IStroke;
     use(...plugins: IPlugin[]): void;
@@ -49,6 +61,7 @@ export interface ICnChar {
         initials: Array<string>;
     };
     plugins: Array<PluginArg>;
+    hasPlugin(name: string): boolean;
     type: {
         [prop in TypeProp]?: TypeValueObject;
     };
@@ -74,6 +87,7 @@ export interface ICnChar {
     setStrokeCount(word: string, count: number): void;
     setStrokeCount(json: {[key: string]: number}): void;
     shapeSpell(spell: string, reverse?: boolean): string;
+    hasTone(spell: string): boolean;
 
     _: ICncharTool;
     _origin: {
@@ -86,7 +100,7 @@ export interface ICnChar {
 
 declare global {
     interface String {
-        spell(...args: Array<SpellArg>): string | Array<any>;
-        stroke(...args: Array<StrokeArg>): number | Array<any>;
+        spell(...args: Array<SpellArg>): string | string[];
+        stroke(...args: Array<StrokeArg>): number | number[];
     }
 }

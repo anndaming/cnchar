@@ -1,21 +1,22 @@
 /*
  * @Author: tackchen
  * @Date: 2022-04-10 19:03:21
- * @LastEditors: tackchen
- * @LastEditTime: 2022-04-14 22:30:14
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-06-18 13:12:58
  * @FilePath: /cnchar/src/cnchar/common/build-resource.ts
  * @Description: Coding something
  */
 
 import ICnChar from 'cnchar-types';
 
-export const BASE_DIR = 'https://cdn.jsdelivr.net/npm/cnchar-data@latest/';
+export const BASE_DIR = 'https://unpkg.com/cnchar-data@latest/';
+// export const BASE_DIR = 'https://fastly.jsdelivr.net/npm/cnchar-data@latest/'; // jsdelivr 由于仓库太大被限制访问了
 
 export function buildResourceBank (dir: string) {
 
-    let cncharResourceBase = '';
-
     const DEFAULT_RESOURCE_BASE = `${BASE_DIR}${dir}/`;
+
+    let getBaseDIR = () => DEFAULT_RESOURCE_BASE;
 
     let resourceBase = '';
 
@@ -24,10 +25,12 @@ export function buildResourceBank (dir: string) {
             resourceBase = url;
         },
         getResourceBase (): string {
-            return resourceBase || cncharResourceBase || DEFAULT_RESOURCE_BASE;
+            return resourceBase || getBaseDIR() || DEFAULT_RESOURCE_BASE;
         },
         initResourceFromCnchar (cnchar: ICnChar) {
-            cncharResourceBase = `${cnchar._.getResourceBase()}${dir}/`;
+            const base = cnchar._.getResourceBase();
+            if (base)
+                getBaseDIR = () => `${base}${dir}/`;
         }
     };
 }
